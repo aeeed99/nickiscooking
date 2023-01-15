@@ -11,6 +11,9 @@ main:
     name: Recipes
     url: /recipes/
     weight: -110
+  - identifier: guides
+    name: Guides
+    url: /guides/
   - identifier: help
     name: Help
     url: /help/
