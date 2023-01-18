@@ -1,0 +1,15 @@
+{
+  "cSpell.words": [
+    "clif",
+    "hugodata",
+    "ingrediparcer",
+    "isodate",
+    "pagefind",
+    "partialreciperow",
+    "recibundler",
+    "reciparcer",
+    "reciperow",
+    "simletanuosly"
+  ],
+  "python.formatting.provider": "black"
+}

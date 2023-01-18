@@ -7,7 +7,7 @@ summary: No rice cooker required
 Microwaving rice is a very effective yet underappreciated way to make rice.
 Brown rice requires a bit more heat and time.
 
-## You will need.
+## You will need
 
 - A microwave safe dish or pan that's very deep.
 - A cover for the dish or pan that can vent or left ajar.
@@ -22,7 +22,7 @@ Brown rice requires a bit more heat and time.
 
 ---
 
-### Other tips.
+### Other tips
 - Until you know your microwave, keep an eye on it as the water may boil over.
 - The best way to save leftover rice is to freeze it; reheating it will recreate
-steam from the freezerburn.
+steam from the freezer burn.
