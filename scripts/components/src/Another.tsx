@@ -1,11 +1,7 @@
-import type { Component } from 'solid-js';
+import type { Component } from "solid-js";
 
 const Another: Component = () => {
-  return (
-    <div>
-      hello from solid AGAIN!
-    </div>
-  );
+  return <div>hello from solid AGAIN!</div>;
 };
 
 // @ts-expect-error

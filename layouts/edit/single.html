@@ -1,6 +1,4 @@
-{{ partial "render-component" (dict "Component" "Another") }}
+{{ define "header" }}{{ partial "page-header.html" . }}{{ end }}
 {{ .Content }}
-<html>
-  <body>
-  </body>
-</html>
+{{ partial "render-component" (dict "Component" "EditRecipe") }}
+

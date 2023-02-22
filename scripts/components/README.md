@@ -3,7 +3,7 @@
 This directory contains independent [solid][https://www.solidjs.com/] components, which can be required into a
 hugo page via a partial or shortcode.
 
-Every component with that is capitalized will considered a build input, and will be built into its own file. 
+Every component with that is capitalized will considered a build input, and will be built into its own file.
 Lowercased files are not exported by themselves (they should be required into another component).
 
 ```
@@ -17,12 +17,10 @@ Login.tsx // built
 Declare a solid component, but instead of exporting it, attach it to the window object as `window._components<Name>`
 
 ```ts
-import type { Component } from 'solid-js';
+import type { Component } from "solid-js";
 
 const Foo: Component = () => {
-  return (
-    <div>Hello!</div> 
-  );
+  return <div>Hello!</div>;
 };
 
 window._componentFoo = Foo;

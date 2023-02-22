@@ -20,7 +20,7 @@ RECIPE_DIR = "../../data/recipes"
 SCHEMA_DIR = "../../data/schemas"
 
 HUGO_RECIPE_DIR = "../../content/recipes"
-MAX_WORKERS = multiprocessing.cpu_count() * 3
+MAX_WORKERS = 5
 
 
 def create_hugo_content_from_json(jsonfiles: List[str]):

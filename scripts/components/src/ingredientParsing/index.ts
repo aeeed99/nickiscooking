@@ -1,0 +1,1 @@
+export { renderIngredient } from "./renderIngredient";
