@@ -4,3 +4,5 @@ title = "KitchenDB"
 theme = "ananke"
 
 recent_posts_number = 10
+
+enableGitInfo = true
