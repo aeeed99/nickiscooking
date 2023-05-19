@@ -4,6 +4,8 @@ date: {{ .Date }} #$DATE$
 categories: [] #$CATEGORIES$
 summary: " " #$SUMMARY$
 #$AUTHOR$
+#$PHOTO_AUTHOR$
+#$PHOTO_AUTHOR_LINK$
 prepTime: 0
 cookTime: 0
 difficulty: 0

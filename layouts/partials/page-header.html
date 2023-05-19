@@ -14,6 +14,15 @@
           {{ end }}
         {{ end }}
       </div>
+      <code>{{ .Params.photoAttribution }}</code>
+      {{ if .Params.photoAuthor }}
+        <div class="offwhite tr dib pa2 fr bg-white-40 br2" style="margin-top: -2em">Photo by
+          {{if .Params.photoAuthorLink }}
+            <a href="{{ .Params.photoAuthorLink }}" class="light-blue" target="_blank">{{ .Params.photoAuthor }}</a>
+          {{ else }}
+            {{ .Params.photoAuthor}}
+          {{ end }}</div>
+      {{ end }}
     </div>
   </header>
 {{ else }}

@@ -247,6 +247,21 @@
         ]
       }
     },
+    "photoAttribution": {
+      "description": "Attribution for the photo, which may be separate from regular attribution.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Real or username",
+          "type": "string"
+        },
+        "link": {
+          "description": "link to the author",
+          "type": "string"
+        }
+      },
+      "required": ["name"]
+    },
     "attribution": {
       "description": "properties relating to author attribution and credit",
       "type": "object",
@@ -270,6 +285,14 @@
             }
           }
         }
+      }
+    },
+    "tips": {
+      "description": "Tips for setting the user set up for success when making the recipe.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "A single tip."
       }
     }
   },

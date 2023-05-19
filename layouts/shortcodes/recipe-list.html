@@ -39,7 +39,18 @@
   </ol>
   {{ end }}
 </div>
+
+  {{ if $data.tips }}
+    {{ range $data.tips }}
+      <h2>Tips</h2>
+      <ul>
+        <li class="avenir fw4">{{ . }}</li>
+      </ul>
+    {{ end }}
+  {{ end }}
 {{ end }}
+
+
 <script>
   $displayUnits();
 </script>

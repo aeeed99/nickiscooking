@@ -67,7 +67,11 @@ def validate_file_name(name):
 def validate_file_schema(fh):
     instance = json.loads(fh.read())
     schema = get_recipe_schema()
-    validate(instance=instance, schema=schema)
+    try:
+        validate(instance=instance, schema=schema)
+    except Exception as e:
+        log.debug(f"Not valid! {e}")
+        raise e
 
 
 @functools.lru_cache
@@ -100,11 +104,12 @@ def post_build_mods(file: str, mkdown: str) -> None:
     with open(file) as fh:
         recipe = json.loads(fh.read())
 
-    correct_date(recipe, os.path.join('..', mkdown))
-    use_json_name_as_title(recipe, os.path.join('..', mkdown))
-    correct_categories(recipe, os.path.join('..', mkdown))
-    add_summary(recipe, os.path.join('..', mkdown))
-    add_author(recipe, os.path.join('..', mkdown))
+    correct_date(recipe, os.path.join("..", mkdown))
+    use_json_name_as_title(recipe, os.path.join("..", mkdown))
+    correct_categories(recipe, os.path.join("..", mkdown))
+    add_summary(recipe, os.path.join("..", mkdown))
+    add_author(recipe, os.path.join("..", mkdown))
+    add_photo_author(recipe, os.path.join("..", mkdown))
     try:
         add_frontmatter(recipe, mkdown)
     except Exception as e:
@@ -153,9 +158,22 @@ def add_author(recipe: dict, mkdown: str) -> None:
     subprocess.run(["sed", "-i", "", f"s#.*\\$AUTHOR\\$$#author: {author}#", mkdown])
 
 
+def add_photo_author(recipe: dict, mkdown: str) -> None:
+    if "photoAttribution" not in recipe:
+        return
+    author = recipe["photoAttribution"]["name"]
+    author_link = (
+        recipe["photoAttribution"]["link"]
+        if "link" in recipe["photoAttribution"]
+        else None
+    )
+    subprocess.run(["sed", "-i", "", f"s#.*\\$PHOTO_AUTHOR\\$$#photoAuthor: {author}#", mkdown])
+    if author_link is not None:
+        subprocess.run(["sed", "-i", "", f"s#.*\\$PHOTO_AUTHOR_LINK\\$$#photoAuthorLink: {author_link}#", mkdown])
+
 def add_frontmatter(recipe: dict, mkdown: str) -> None:
     with TemporaryFile() as fp:
-        with open(os.path.join('..', mkdown)) as orig:
+        with open(os.path.join("..", mkdown)) as orig:
             for line in orig:
                 if line == "prepTime: 0\n":
                     fp.write(
