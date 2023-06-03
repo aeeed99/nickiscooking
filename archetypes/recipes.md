@@ -13,6 +13,8 @@ featured_image: ""
 description: How to make {{ replace .Name "-" " " | title }} from the free online cookbook
 diets: []
 cuisines: []
+#$JSON_DATA$
+
 ---
 {{< recipe-data url="data/recipes/{{ replace .Name "\"" "\\\"" }}.json">}}
 {{< recipe-summary url="data/recipes/{{ replace .Name "\"" "\\\"" }}.json">}}

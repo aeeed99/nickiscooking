@@ -26,19 +26,19 @@
   {{ end }}
 </div>
 
-{{ range $data.steps }}
 <h2>Steps</h2>
+{{ range $data.steps }}
 <div class="w-two-thirds-l">
   {{ with .sectionTitle }}
-  <h3> {{ .sectionTitle }}</h3>
+  <h3> {{ . }}</h3>
   {{ end }}
   <ol>
     {{ range .steps }}
     <li class="avenir fw4">{{ . | markdownify }}</li>
     {{ end }}
   </ol>
-  {{ end }}
 </div>
+  {{ end }}
 
   {{ if $data.tips }}
     {{ range $data.tips }}

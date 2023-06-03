@@ -171,6 +171,8 @@ def add_photo_author(recipe: dict, mkdown: str) -> None:
     if author_link is not None:
         subprocess.run(["sed", "-i", "", f"s#.*\\$PHOTO_AUTHOR_LINK\\$$#photoAuthorLink: {author_link}#", mkdown])
 
+
+
 def add_frontmatter(recipe: dict, mkdown: str) -> None:
     with TemporaryFile() as fp:
         with open(os.path.join("..", mkdown)) as orig:
@@ -200,8 +202,11 @@ def add_frontmatter(recipe: dict, mkdown: str) -> None:
                     fp.write(f'diets: {recipe["diets"]}\n'.encode())
                 elif line == "cuisines: []\n" and recipe.get("cuisines"):
                     fp.write(f'cuisines: {recipe["cuisines"]}\n'.encode())
+                elif line == "#$JSON_DATA$\n":
+                    fp.write(f'jsonData: {json.dumps(recipe)}'.encode())
                 else:
                     fp.write(line.encode())
+            # Add all recipe data as an object
             fp.seek(0)
         with open(mkdown, mode="w") as fh:
             fh.writelines([l.decode("utf-8") for l in fp.readlines()])

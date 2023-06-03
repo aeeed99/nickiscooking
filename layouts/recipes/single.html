@@ -18,14 +18,20 @@
       <meta data-pagefind-default-meta="image[content]" content="{{ partial "func/ThumbnailFromImage" .Params.featured_image }}" property="og:image">
       <h1 class="f1 athelas mt3 mb1" data-pagefind-body>
         {{- .Title -}}
+        {{/*  {{ .Params.jsonData.attribution }}  */}}
       </h1>
       {{ with .Params.author | default .Site.Params.author }}
-      <p class="tracked">
-        {{ $.Render "by" }} <strong>
+      <p class="tracked" style="display: flex; align-items: center;">
+        {{ $.Render "by" }} <strong style="display: flex; align-items: center;">
         {{- if reflect.IsSlice . -}}
             {{ delimit . ", " | markdownify }}
         {{- else -}}
-            {{ . | markdownify }}
+            &nbsp;{{ . | markdownify }}&nbsp;
+            {{ if $.Params.jsonData.attribution.links }} 
+              {{ range $.Params.jsonData.attribution.links }}
+                {{ partial "social-icon.html" (dict "Icon" .type "Link" .link ) }} 
+              {{ end }}
+            {{ end }}
         {{- end -}}
         </strong>
       </p>
