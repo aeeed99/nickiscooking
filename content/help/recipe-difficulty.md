@@ -1,7 +1,7 @@
 ---
 title: "Recipe Difficulty"
 date: 2022-11-27T07:38:40-05:00
-type: kitchendb
+type: literallyjustrecipes
 ---
 
 Recipes are ranked from 1-5 depending on the difficulty.
@@ -15,7 +15,7 @@ This recipe is more "assembling" than cooking. Ingredients are easy to prepare i
 cooking, the amount of heat/time does not have to be too precise as there is room for error. This recipe can often be done while being
 distracted the whole time.
 
-**Examples**: [Slow Cooker Chicken Taco Bowls](http://preview.kitchendb.net/recipes/slow-cooker-chicken-taco-bowls/), [Tuna Paté](http://preview.kitchendb.net/recipes/tuna-pat%C3%A9/).
+**Examples**: [Slow Cooker Chicken Taco Bowls](http:///literallyjustrecipes.net/recipes/slow-cooker-chicken-taco-bowls/), [Tuna Paté](http://literallyjustrecipes.net/recipes/tuna-pat%C3%A9/).
 
 
 ## Level 2: {{< recipe-difficulty difficulty=2 >}} Easy

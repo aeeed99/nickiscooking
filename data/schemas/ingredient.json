@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kitchendb.net/data/schemas/ingredient.json",
+  "$id": "https://literallyjustrecipes.net/data/schemas/ingredient.json",
   "title": "Ingredient",
   "description": "An ingredient used in a recipe",
   "type": "object",
