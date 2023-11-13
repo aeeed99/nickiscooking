@@ -1,1 +1,0 @@
-export { IngredientSection } from "./ingredientSection";
