@@ -1,4 +1,5 @@
 content/recipes
+data/recipes
 public
 pagefind
 secrets.json
