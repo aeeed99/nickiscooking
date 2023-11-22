@@ -123,9 +123,9 @@ def correct_date(recipe: dict, mkdown: str) -> None:
 
 
 def use_json_name_as_title(recipe: dict, mkdown: str) -> None:
-    log.debug(f'{__name__}: replacing name with `{recipe["name"]}`')
+    log.debug(f'{__name__}: replacing name with `{recipe["name"]}` | Literally Just Recipes!')
     subprocess.run(
-        ["sed", "-i", "", f"s#.*\\$TITLE\\$$#title: {recipe['name']}#", mkdown]
+        ["sed", "-i", "", f"s#.*\\$TITLE\\$$#title: {recipe['name']} | Literally Just Recipes!#", mkdown]
     )
 
 
