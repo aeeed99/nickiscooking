@@ -23,6 +23,7 @@ def deploy():
     build_hugo()
     add_pagefind()
     upload_to_s3()
+    sync_recipes()
 
 
 def build_recipes():
@@ -51,6 +52,15 @@ def add_pagefind():
     )
     log.info("adding pagefind for search DONE")
 
+def sync_recipes():
+    AWS_S3_BUCKET = os.environ.get("KDB_RECIPE_AWS_S3_BUCKET", secrets["AWS_RECIPE_S3_BUCKET"])
+    subprocess.run(
+        ["aws", "s3", "sync", "data/recipes", f"s3://{AWS_S3_BUCKET}"],
+        cwd=PROJECT_ROOT,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=True,
+    )
 
 def upload_to_s3():
     AWS_S3_BUCKET = os.environ.get("KDB_AWS_S3_BUCKET", secrets["AWS_S3_BUCKET"])
