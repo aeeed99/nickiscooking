@@ -23,7 +23,10 @@ def create(overwrite=False):
         im = Image.open(os.path.join(PROJECT_ROOT, IMAGE_DIR, file)).copy()
         factor = max(im.size) / 256
         im.thumbnail([s // factor for s in im.size])
-        im.save(os.path.join(PROJECT_ROOT, IMAGE_DIR, "thumbnail", file))
+
+        root, *_ = os.path.splitext(file)
+        outfile = f'{root}.webp'
+        im.save(os.path.join(PROJECT_ROOT, IMAGE_DIR, "thumbnail", outfile), 'webp', quality=70)
 
 
 if __name__ == "__main__":
