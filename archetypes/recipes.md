@@ -1,5 +1,5 @@
 ---
-title: '{{ replace .Name "-" " " | title }} | Literally Just Recipes!' #$TITLE$
+title: '{{ replace .Name "-" " " | title }}' #$TITLE$
 date: {{ .Date }} #$DATE$
 categories: [] #$CATEGORIES$
 summary: " " #$SUMMARY$
