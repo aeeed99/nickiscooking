@@ -25,7 +25,7 @@ from os import path
 
 T = t.TypeVar("T")
 
-logging.basicConfig(level=os.environ.get("LOGLEVEL", "WARN"))
+logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 
 
 def add_new_recipes(filepath):
@@ -115,7 +115,7 @@ def write_recipe_to_json(recipe: reciperow, additional_keys=None):
     recipe = Recipe(**attrs)
 
     filename = get_recipe_filename(recipe)
-    logging.debug(f"Recipe will be named {filename}")
+    logging.info(f"Recipe will be named {filename}")
     with open(path.join("..", "..", "data", "recipes", filename), "w") as fh:
         fh.write(json.dumps({**recipe, **additional_keys}, indent=2))  # type: ignore
 

@@ -41,6 +41,7 @@ def convert(overwrite=False):
 
         outsize = os.path.getsize(outpath)
         print(f'* new file [{outfile}] In size: {filesize} Out size: {outsize} <quality={quality}>')
+        os.unlink(os.path.join(PROJECT_ROOT, IMAGE_DIR, file))
 
 
 if __name__ == "__main__":
