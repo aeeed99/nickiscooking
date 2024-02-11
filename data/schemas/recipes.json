@@ -67,7 +67,7 @@
     "difficulty": {
       "description": "difficulty on a scale of 1-5",
       "type": "number",
-      "minimum": 0,
+      "minimum": 1,
       "maximum": 5
     },
     "imageUrl": {
@@ -157,7 +157,8 @@
                     "pinch",
                     "kg",
                     "gal",
-                    "liter"
+                    "liter",
+                    ""
                   ]
                 },
                 "customUnit": {

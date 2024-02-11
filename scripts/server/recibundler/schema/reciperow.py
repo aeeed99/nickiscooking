@@ -7,11 +7,7 @@ reciperow = t.NamedTuple(
         ("timestamp", str),
         ("name", str),
         ("summary", t.Optional[str]),
-        ("prep_time", t.Optional[int]),
-        ("cook_time", t.Optional[str]),
-        ("categories", str),
-        ("ingredients", t.Any),
-        ("steps", str),
+        ("recipe_body", str),
         ("link_to_photo", t.Optional[str]),
         ("link_to_instruction_video", t.Optional[str]),
         ("external_recipe_links", t.Optional[str]),
@@ -20,9 +16,6 @@ reciperow = t.NamedTuple(
         ("author_name", t.Optional[str]),
         ("social_links", t.Optional[str]),
         ("book_merch_links", t.Optional[str]),
-        ("difficulty", t.Optional[int]),
-        ("cuisine", t.Optional[str]),
-        ("diet", t.Optional[str]),
     ],
 )
 
