@@ -26,6 +26,7 @@ google-auth-httplib2 = "*"
 google-auth-oauthlib = "*"
 pillow = "*"
 openai = "*"
+autopep8 = "*"
 
 [dev-packages]
 black = "*"

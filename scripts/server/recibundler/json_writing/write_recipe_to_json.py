@@ -72,39 +72,30 @@ def is_recipe_old(recipe: reciperow, since) -> bool:
     recipe_date = datetime.strptime(recipe.timestamp, "%m/%d/%Y %H:%M:%S")
     return recipe_date <= since
 
-def ai_write_recipe_to_json(recipe: reciperow):
-    ai_write_recipe_to_json
-
-def write_recipe_to_json(recipe: reciperow, additional_keys=None):
+def write_recipe_to_json(recipe: dict, additional_keys=None):
     if additional_keys is None:
         additional_keys = {}
     attrs = {
         "version": "1",
-        "name": recipe.name,
-        "summary": recipe.summary,
-        "steps": reciparcer.parse_steps(recipe.steps),
-        "ingredients": reciparcer.parse_ingredients(recipe.ingredients),
-        "timestamp": recipe.timestamp,
-        "categories": [c.strip() for c in recipe.categories.split(",") if c.strip()],
-        "difficulty": (int(recipe.difficulty) or 0) if recipe.difficulty else 0,
+        "name": recipe['name'],
+        "summary": recipe['summary'],
+        "steps": recipe['steps'],
+        "ingredients": recipe['ingredients'],
+        "timestamp": recipe['timestamp'],
+        "categories": recipe.get('categories', []),
+        "difficulty": (int(recipe.get('difficulty'))) if 'difficulty' in recipe else 0,
+        "attribution": recipe.get('attribution', {}),
     }
-    if recipe.author_name or recipe.social_links:
-        attrs["attribution"] = {
-            "name": recipe.author_name,
-            "links": [
-                {"type": "TODO", "link": link}
-                for link in (
-                    recipe.social_links.split("\n") if recipe.social_links else []
-                )
-            ],
-        }
+    if 'photoAttribution' in recipe:
+        attrs['photoAttribution'] = recipe['photoAttribution']
+
     optional_attrs = {
-        "yields": None,  # TODO
-        "yieldsUnit": None,  # TODO
-        "prepTimeMinutes": int(recipe.prep_time) if recipe.prep_time else None,
-        "cookTimeMinutes": int(recipe.cook_time) if recipe.cook_time else None,
-        "cuisine": recipe.cuisine.split(", ") if recipe.cuisine else None,
-        "diet": recipe.diet.split(", ") if recipe.diet else None,
+        "yields": recipe.get('yields'),
+        "yieldsUnit": recipe.get('yieldsUnit'),
+        "prepTimeMinutes": int(recipe['prepTimeMinutes']) if 'prepTimeMinutes' in recipe else None,
+        "cookTimeMinutes": int(recipe['cookTimeMinutes']) if 'cookTimeMinutes' in recipe else None,
+        "cuisines": recipe.get('cuisines'),
+        "diets": recipe.get('diets')
     }
 
     for key, value in optional_attrs.items():

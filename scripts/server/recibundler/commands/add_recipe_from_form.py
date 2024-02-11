@@ -12,6 +12,7 @@ date of the last recipe to be added. This script will
 import sys
 import os
 import csv
+import json
 import typing as t
 from typing import Iterator
 from datetime import datetime
@@ -38,7 +39,6 @@ def add_new_recipes(filepath=None):
             else gsheets_download.fetch()
         )
 
-        next(reader)
         with open(ADD_NEW_RECIPES_SINCE_PATH) as datefh:
             try:
                 last_date = datetime.fromisoformat(datefh.read().strip())
@@ -51,11 +51,29 @@ def add_new_recipes(filepath=None):
 
         for recipe in reader:
             recipe += [None, None]
-            recipe = reciperow.reciperow(*recipe[:19])
+            print(recipe)
+            recipe = reciperow.reciperow(*recipe[:12])
             if reciperow.is_recipe_old(recipe, last_date):
                 continue
             logging.info(f"the next recipe is {recipe.name}")
-            json_writing.write_recipe_to_json(recipe)
+            print(recipe)
+            parsed_recipe = json_writing.ai_recipe_to_json.main(recipe)
+            try:
+                json_writing.write_recipe_to_json(parsed_recipe, { "name": recipe.name })
+            except Exception as e:
+                logging.error(f'got this error will try again: {e}')
+                parsed_recipe = json_writing.ai_recipe_to_json(recipe, additional_messages=[
+                    {
+                        "role": "system",
+                        "message": json.dumps(parsed_recipe)
+                    },
+                    {
+                        "role": "user",
+                        "message": f"I got an error with that json, this is the python error: \n\n{e}\n\n"
+                        "can you try again? Keep in mind the entire json schema. Don't apologize, just output raw json"
+                    }
+                ])
+                json_writing.write_recipe_to_json(parsed_recipe, { "name": recipe.name })
 
             with open(ADD_NEW_RECIPES_SINCE_PATH, mode="w") as datefh:
                 datefh.write(str(reciperow.isodate_from_recipe(recipe)))
