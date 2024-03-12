@@ -62,7 +62,7 @@ def add_new_recipes(filepath=None):
                 json_writing.write_recipe_to_json(parsed_recipe, { "name": recipe.name })
             except Exception as e:
                 logging.error(f'got this error will try again: {e}')
-                parsed_recipe = json_writing.ai_recipe_to_json(recipe, additional_messages=[
+                parsed_recipe = json_writing.ai_recipe_to_json.main(recipe, additional_messages=[
                     {
                         "role": "system",
                         "message": json.dumps(parsed_recipe)

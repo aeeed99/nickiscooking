@@ -12,10 +12,13 @@
     <ul>
       {{ range . }}
       <li class="avenir fw4">
-        {{ if .amount }}
+        {{ if.amount }}
+          {{/* Makes sure the amount is greater than 0 (sometimes happens with parsing) */}}
+          {{ if gt (index .amount 0) 0 }}
         <b><span class="recipe-unit">
             {{ cond ( eq (len .amount) 1 ) ( index .amount 0 ) ( printf "%v-%v" (index .amount 0) (index .amount 1) ) }}
           </span>
+          {{ end }}
           {{ end }}
           {{ .unit }}</b> {{ .ingredient | markdownify }}{{ if .modifier | markdownify }}, {{ .modifier }}{{ end }}
       </li>

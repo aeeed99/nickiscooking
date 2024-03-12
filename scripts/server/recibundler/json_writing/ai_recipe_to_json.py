@@ -76,7 +76,7 @@ def main(recipe, additional_messages=None):
             # },
             {
                 "role": "user",
-                "content": f"Great! Here's the recipe represented as a python dict. Please respond with just the raw json representation (don't even use things like ```json around it), so that it can be parsed.:\n\n${recipe._asdict()}",
+                "content": f"Great! Here's the recipe represented as a python dict. Make sure the amount property is never empty. Please respond with just the raw json representation (don't even use things like ```json around it), so that it can be parsed.:\n\n${recipe._asdict()}",
             },
         ] + additional_messages
     response = client.chat.completions.create(
@@ -136,11 +136,19 @@ def main(recipe, additional_messages=None):
         'prepTimeMinutes',
         'cookTimeMinutes',
         'originalSource',
+        'difficulty',
     ]
+    fields_to_delete = ['attribution', 'photoAttribution']
     for field in fields_to_delete_if_none:
         if field in data and data[field] is None:
             log.warn(f'Deleting invalid field {field} as it had a null value.')
             del data[field]
+    for field in fields_to_delete:
+        if field in data:
+            del data[field]
+
+    if 'difficulty' in data and data['difficulty'] == 0:
+        del data['difficulty']
 
     data["name"] = data["name"].replace(
         "$", "_").replace("*", "_").replace("&", " and ")

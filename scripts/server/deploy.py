@@ -25,7 +25,6 @@ def deploy():
     upload_to_s3()
     sync_recipes()
 
-
 def build_recipes():
     """builds the recipes from the data/json files into hugo content"""
     log.info("building recipes...")
