@@ -4,6 +4,6 @@
     &copy; {{ with .Site.Copyright | default .Site.Title }} {{ . | safeHTML }} {{ now.Format "2006"}} {{ end }}
   </a>
     <div>{{ partial "social-follow.html" . }}</div>
-    <div class="light-silver">Version <code>{{ .GitInfo.AbbreviatedHash }}</code></div>
+    {{ if .GitInfo.AbbreviatedHash }}<div class="light-silver">Version <code>{{ .GitInfo.AbbreviatedHash }}</code></div>{{ end}}
   </div>
 </footer>

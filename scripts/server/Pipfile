@@ -16,6 +16,8 @@ next-recipe = "python -m recibundler next-recipe"
 thumbnail = "python create_thumbnails.py"
 # creates thumnails *overwritting ones that do exist*
 recreate-thumbnails = "python create_thumbnails.py -f"
+# uploads all images (recipe images) to s3
+upload-images = "python upload_images.py"
 
 [packages]
 jsonschema = "*"

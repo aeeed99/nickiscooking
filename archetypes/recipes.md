@@ -8,6 +8,7 @@ summary: " " #$SUMMARY$
 #$PHOTO_AUTHOR_LINK$
 prepTime: 0
 cookTime: 0
+youtube: ""
 difficulty: 0
 featured_image: ""
 description: How to make {{ replace .Name "-" " " | title }} from the free online cookbook
@@ -18,4 +19,5 @@ cuisines: []
 ---
 {{< recipe-data url="data/recipes/{{ replace .Name "\"" "\\\"" }}.json">}}
 {{< recipe-summary url="data/recipes/{{ replace .Name "\"" "\\\"" }}.json">}}
+{{< recipe-youtube url="data/recipes/{{ replace .Name "\"" "\\\"" }}.json">}}
 {{< recipe-list url="data/recipes/{{ replace .Name "\"" "\\\"" }}.json">}}

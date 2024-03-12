@@ -1,0 +1,12 @@
+{{ with .Get "url" }}
+{{ $data := getJSON . }}
+  {{ if $data.media }}
+    {{ if gt (len $data.media ) 0 }}
+      {{ if (eq (index $data.media 0).type "youtube") }}
+        {{ if (index $data.media 0).comment }}
+  <div><iframe width="660" height="385" src="https://www.youtube.com/embed/{{ (index $data.media 0).comment }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
