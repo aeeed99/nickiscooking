@@ -1,6 +1,9 @@
 {{ $featured_image := partial "func/GetFeaturedImage.html" . }}
 {{ if $featured_image }}
   {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
+{{ if eq (getenv "HUGO_ENV") "production" }}
+  <script defer src="https://us.umami.is/script.js" data-website-id="e3bac652-deab-4384-b581-e1a4d87e10d5"></script>
+{{ end}}
   <header class="cover bg-top" style="background-image: url('{{ $featured_image }}'); background-position: 50% 38%; ">
     <div class="bg-black-60">
       {{ partial "site-navigation.html" . }}
