@@ -2,7 +2,7 @@
 title: "About"
 ---
 
-Literally Just Recipes (LJR) brings you the joy of free recipes, without having to fight through ads or personal stories.
+KitchenDB brings you the joy of free recipes, without having to fight through ads or personal stories.
 
 It's the fastest place to get straight to a recipe. A website that doesn't have ads or
 trackers competing with loading content makes recipes easy to load and easy to use.

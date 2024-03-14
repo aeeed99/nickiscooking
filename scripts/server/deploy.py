@@ -33,9 +33,10 @@ def build_recipes():
 
 
 def build_hugo():
-    log.info("calling `hugo -D` to build hugo..")
+    log.info("calling `hugo -DF` to build hugo..")
+    os.environ["HUGO_ENV"] = "production"
     subprocess.run(
-        ["hugo", "-D", "-F", "--environment", "preview" ], cwd=PROJECT_ROOT, check=True
+        ["hugo", "-DF", "--environment", "production"], cwd=PROJECT_ROOT, check=True,
     )
     log.info("hugo build DONE")
 
@@ -76,7 +77,7 @@ def upload_to_s3():
     log.debug(f"will deploy to {AWS_S3_BUCKET}")
     log.info("uploading to s3...")
     cp = subprocess.run(
-        ["aws", "s3", "cp", "public", f"s3://{AWS_S3_BUCKET}", "--recursive"],
+        ["aws", "s3", "cp", "public", f"s3://{AWS_S3_BUCKET}", "--recursive", "--exclude", '"images/*"' ],
         cwd=PROJECT_ROOT,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,

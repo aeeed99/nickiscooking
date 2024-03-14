@@ -123,7 +123,7 @@ def correct_date(recipe: dict, mkdown: str) -> None:
 
 
 def use_json_name_as_title(recipe: dict, mkdown: str) -> None:
-    log.debug(f'{__name__}: replacing name with `{recipe["name"]}` | Literally Just Recipes!')
+    log.debug(f'{__name__}: replacing name with `{recipe["name"]}` | KitchenDB!')
     subprocess.run(
         ["sed", "-i", "", f"s#.*\\$TITLE\\$$#title: {recipe['name']}#", mkdown]
     )
