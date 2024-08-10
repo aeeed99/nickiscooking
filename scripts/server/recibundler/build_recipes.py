@@ -32,9 +32,9 @@ def create_hugo_content_from_json(jsonfiles: List[str]):
         json_name = file.replace("'", "ʼ")
         mkdown_name = camel_to_snake_case(json_name).replace(".json", ".md")
         log.info(f"building {mkdown_name}...")
-        log.debug(f"CMD: hugo new --kind recipes {HUGO_RECIPE_DIR}/{mkdown_name}")
+        log.debug(f"CMD: hugo new --kind recipes recipes/{mkdown_name}")
         subprocess.run(
-            ["hugo", "new", "--kind", "recipes", f"{HUGO_RECIPE_DIR}/{mkdown_name}"],
+            ["hugo", "new", "--kind", "recipes", f"recipes/{mkdown_name}"],
             cwd=PROJECT_ROOT,
         )
         post_build_mods(
@@ -54,8 +54,9 @@ def build():
 
 
 def clean():
-    for file in os.listdir(f"../{HUGO_RECIPE_DIR}"):
-        os.remove(f"../{HUGO_RECIPE_DIR}/{file}")
+    for file in os.listdir(f"{HUGO_RECIPE_DIR}"):
+        log.debug(f'clean: deleting file {file}')
+        os.remove(f"{HUGO_RECIPE_DIR}/{file}")
 
 
 def validate_file_name(name):
@@ -103,13 +104,13 @@ time, additional modification to form are required.
 def post_build_mods(file: str, mkdown: str) -> None:
     with open(file) as fh:
         recipe = json.loads(fh.read())
-
-    correct_date(recipe, os.path.join("..", mkdown))
-    use_json_name_as_title(recipe, os.path.join("..", mkdown))
-    correct_categories(recipe, os.path.join("..", mkdown))
-    add_summary(recipe, os.path.join("..", mkdown))
-    add_author(recipe, os.path.join("..", mkdown))
-    add_photo_author(recipe, os.path.join("..", mkdown))
+    log.debug(f'post_build_mods starting. mkdown={mkdown}, file={file}')
+    correct_date(recipe, os.path.join(mkdown))
+    use_json_name_as_title(recipe, os.path.join(mkdown))
+    correct_categories(recipe, os.path.join(mkdown))
+    add_summary(recipe, os.path.join(mkdown))
+    add_author(recipe, os.path.join(mkdown))
+    add_photo_author(recipe, os.path.join(mkdown))
     try:
         add_frontmatter(recipe, mkdown)
     except Exception as e:
