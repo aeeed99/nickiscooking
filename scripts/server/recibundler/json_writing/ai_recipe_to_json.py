@@ -138,6 +138,13 @@ def main(recipe, additional_messages=None):
         'originalSource',
         'difficulty',
     ]
+    """
+    units of measurement (ingredient.unit) to correct
+    """
+    units_to_correct = {
+        'tablespoons': 'tbsp',
+        'cups': 'cup'
+    }
     fields_to_delete = ['attribution', 'photoAttribution']
     for field in fields_to_delete_if_none:
         if field in data and data[field] is None:
@@ -146,6 +153,16 @@ def main(recipe, additional_messages=None):
     for field in fields_to_delete:
         if field in data:
             del data[field]
+    for si, section in enumerate(data["ingredients"]):
+        for ii, ing in enumerate(section["ingredients"]):
+            if ing["unit"] in units_to_correct.keys():
+                corrected = units_to_correct[ing["unit"]]
+                log.info(f'Correcting unit: {ing["unit"]} -> {corrected}')
+                try:
+                    data["ingredients"][si]["ingredients"][ii]["unit"] = corrected
+                except KeyError:
+                    log.error(f'could not correct unit in section {si}, ingredient {ii}')
+                    pass
 
     if 'difficulty' in data and data['difficulty'] == 0:
         del data['difficulty']

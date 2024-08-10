@@ -8,8 +8,13 @@ from deploy import build_recipes, build_hugo, add_pagefind
 
 
 def build():
+    print('building recipes')
     build_recipes()
+
+    print('building site with hugo')
     build_hugo()
+
+    print('adding pagefind')
     add_pagefind()
 
 
