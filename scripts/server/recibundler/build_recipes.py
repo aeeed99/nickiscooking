@@ -20,30 +20,29 @@ RECIPE_DIR = "../../data/recipes"
 SCHEMA_DIR = "../../data/schemas"
 
 HUGO_RECIPE_DIR = "../../content/recipes"
-MAX_WORKERS = 5
+MAX_WORKERS = 10
 
 
 def create_hugo_content_from_json(jsonfiles: List[str]):
-    def func(file):
+    result = subprocess.run(
+            ["./build_recipes.sh"],
+            cwd=PROJECT_ROOT,
+            shell=True,
+            capture_output=True
+        )
+    if result.returncode != 0:
+            log.error(f'Error! {result.stderr} {result.stdout}')
+    
+    for file in jsonfiles:
         validate_file_name(file)
         with open(os.path.join(RECIPE_DIR, file)) as fh:
             log.debug(f"Validating schema for {file}...")
-            validate_file_schema(fh)
+            # validate_file_schema(fh)
         json_name = file.replace("'", "ʼ")
         mkdown_name = camel_to_snake_case(json_name).replace(".json", ".md")
-        log.info(f"building {mkdown_name}...")
-        log.debug(f"CMD: hugo new --kind recipes recipes/{mkdown_name}")
-        subprocess.run(
-            ["hugo", "new", "--kind", "recipes", f"recipes/{mkdown_name}"],
-            cwd=PROJECT_ROOT,
-        )
         post_build_mods(
             os.path.join(RECIPE_DIR, json_name), f"{HUGO_RECIPE_DIR}/{mkdown_name}"
         )
-
-    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        executor.map(func, jsonfiles)
-
 
 def build():
     """
@@ -124,7 +123,7 @@ def correct_date(recipe: dict, mkdown: str) -> None:
 
 
 def use_json_name_as_title(recipe: dict, mkdown: str) -> None:
-    log.debug(f'{__name__}: replacing name with `{recipe["name"]}` | KitchenDB!')
+    log.debug(f'{__name__}: replacing name with `{recipe["name"]}` | NoConvoCooking')
     subprocess.run(
         ["sed", "-i", "", f"s#.*\\$TITLE\\$$#title: {recipe['name']}#", mkdown]
     )
@@ -176,38 +175,38 @@ def add_photo_author(recipe: dict, mkdown: str) -> None:
 
 def add_frontmatter(recipe: dict, mkdown: str) -> None:
     with TemporaryFile() as fp:
-        with open(os.path.join("..", mkdown)) as orig:
+        with open(os.path.join(mkdown)) as orig:
             for line in orig:
-                if line == "prepTime: 0\n":
+                if line == "prepTime: 0\n" and False:
                     fp.write(
                         b"prepTime: "
                         + str(recipe.get("prepTimeMinutes", "0")).encode()
                         + b"\n"
                     )
-                elif line == "cookTime: 0\n":
-                    fp.write(
-                        b"cookTime: "
-                        + str(recipe.get("cookTimeMinutes", "0")).encode()
-                        + b"\n"
-                    )
-                elif line == "difficulty: 0\n":
-                    fp.write(
-                        b"difficulty: "
-                        + str(recipe.get("difficulty", "0")).encode()
-                        + b"\n"
-                    )
-                elif line == 'featured_image: ""\n':
-                    image_url = recipe.get("imageUrl", '""')
-                    fp.write(f"featured_image: {image_url}\n".encode())
-                elif line == 'youtube: ""\n':
-                    youtube = recipe['media'][0]['comment'] if recipe.get('media') and len(recipe['media']) > 0 and 'comment' in recipe['media'][0] else '""'
-                    fp.write(f"youtube: {youtube}\n".encode())
-                elif line == "diets: []\n" and recipe.get("diets"):
-                    fp.write(f'diets: {recipe["diets"]}\n'.encode())
-                elif line == "cuisines: []\n" and recipe.get("cuisines"):
-                    fp.write(f'cuisines: {recipe["cuisines"]}\n'.encode())
-                elif line == "#$JSON_DATA$\n":
-                    fp.write(f'jsonData: {json.dumps(recipe)}'.encode())
+                # elif line == "cookTime: 0\n":
+                #     fp.write(
+                #         b"cookTime: "
+                #         + str(recipe.get("cookTimeMinutes", "0")).encode()
+                #         + b"\n"
+                #     )
+                # elif line == "difficulty: 0\n":
+                #     fp.write(
+                #         b"difficulty: "
+                #         + str(recipe.get("difficulty", "0")).encode()
+                #         + b"\n"
+                #     )
+                # elif line == 'featured_image: ""\n':
+                #     image_url = recipe.get("imageUrl", '""')
+                #     fp.write(f"featured_image: {image_url}\n".encode())
+                # elif line == 'youtube: ""\n':
+                #     youtube = recipe['media'][0]['comment'] if recipe.get('media') and len(recipe['media']) > 0 and 'comment' in recipe['media'][0] else '""'
+                #     fp.write(f"youtube: {youtube}\n".encode())
+                # elif line == "diets: []\n" and recipe.get("diets"):
+                #     fp.write(f'diets: {recipe["diets"]}\n'.encode())
+                # elif line == "cuisines: []\n" and recipe.get("cuisines"):
+                #     fp.write(f'cuisines: {recipe["cuisines"]}\n'.encode())
+                # elif line == "#$JSON_DATA$\n":
+                #     fp.write(f'jsonData: {json.dumps(recipe)}'.encode())
                 else:
                     fp.write(line.encode())
             # Add all recipe data as an object

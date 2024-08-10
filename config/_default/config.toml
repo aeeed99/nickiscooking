@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = "en-us"
-title = "KitchenDB"
+title = "No Convo Cooking"
 theme = "ananke"
 
 recent_posts_number = 10
