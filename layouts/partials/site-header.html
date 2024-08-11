@@ -21,7 +21,6 @@
     <div class="pb3-m pb3-l {{ .Site.Params.background_color_class | default "bg-black" }}">
       {{ partial "site-navigation.html" . }}
       <div class="tc-l pv3 ph3 ph4-ns">
-        {{ if .Params.titleHeader }}<div class='washed-green tc' style="font-size: 1.5rem; margin-bottom: -1rem; margin-left: -8rem; font-family: PatuaOne">No Convo</div>{{ end }}
         <h1 class="f-subheadline fw2 mv0 mv8-ns washed-green mb0 lh-title tc" style="font-size: 3.5rem; font-family: Satisfy; transform: rotate(-1.6deg);">
           {{ .Title | default .Site.Title }}<span style="font-family: SquarePeg; font-weight: 900; font-size: 5.2rem; vertical-align: -0.6rem; position: relative"></span>
         </h1>

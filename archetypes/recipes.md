@@ -17,6 +17,7 @@ description: How to make {{ replace .Name "-" " " | title }} from the free onlin
 diets: []
 cuisines: []
 #$JSON_DATA$
+
 ---
 {{< recipe-data url="data/recipes/{{ replace .Name "\"" "\\\"" }}.json">}}
 {{< recipe-summary url="data/recipes/{{ replace .Name "\"" "\\\"" }}.json">}}
