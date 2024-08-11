@@ -13,3 +13,8 @@
   font-family: PatuaOne;
   src: url(/fonts/PatuaOne-Regular.ttf)
 }
+
+@font-face {
+  font-family: MontaguSlab;
+  src: url(/fonts/MontaguSlab-VariableFont_opsz,wght.ttf);
+}
