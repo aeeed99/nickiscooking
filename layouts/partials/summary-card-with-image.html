@@ -8,12 +8,12 @@
         <img src="{{ site.Params.cdn_prefix }}{{replace $featured_image "images" "images/thumbnail" }}" />
       {{ end }}
       <h1 class="f4 near-black">
-        <a href="{{ .RelPermalink }}" class="link black dim">
+        <a href="{{ .RelPermalink }}" class="link dark-green" style="font-family: MontaguSlab; font-weight: 700">
           {{ .Title }}
         </a>
       </h1>
     </div>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
+    <div class="nested-links f5 lh-copy nested-copy-line-height dark-green">
       {{ .Summary  }} 
     </div>
   </div>

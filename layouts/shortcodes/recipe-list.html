@@ -1,6 +1,11 @@
 {{ with .Get "url" }}
 {{ $data := getJSON . }}
-
+<style>
+  h2 {
+    font-family: MontaguSlab;
+    font-weight: 700;
+  }
+</style>
 <h2>Ingredients</h2>
 <div class="flex flex-wrap justify-between">
   {{ range $data.ingredients }}
@@ -44,8 +49,8 @@
   {{ end }}
 
   {{ if $data.tips }}
+    <h2>Tips</h2>
     {{ range $data.tips }}
-      <h2>Tips</h2>
       <ul>
         <li class="avenir fw4">{{ . }}</li>
       </ul>

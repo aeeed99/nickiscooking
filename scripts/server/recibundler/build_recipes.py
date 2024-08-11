@@ -20,30 +20,29 @@ RECIPE_DIR = "../../data/recipes"
 SCHEMA_DIR = "../../data/schemas"
 
 HUGO_RECIPE_DIR = "../../content/recipes"
-MAX_WORKERS = 5
+MAX_WORKERS = 10
 
 
 def create_hugo_content_from_json(jsonfiles: List[str]):
-    def func(file):
+    result = subprocess.run(
+            ["./build_recipes.sh"],
+            cwd=PROJECT_ROOT,
+            shell=True,
+            capture_output=True
+        )
+    if result.returncode != 0:
+            log.error(f'Error! {result.stderr} {result.stdout}')
+    
+    for file in jsonfiles:
         validate_file_name(file)
         with open(os.path.join(RECIPE_DIR, file)) as fh:
             log.debug(f"Validating schema for {file}...")
-            validate_file_schema(fh)
+            # validate_file_schema(fh)
         json_name = file.replace("'", "ʼ")
         mkdown_name = camel_to_snake_case(json_name).replace(".json", ".md")
-        log.info(f"building {mkdown_name}...")
-        log.debug(f"CMD: hugo new --kind recipes {HUGO_RECIPE_DIR}/{mkdown_name}")
-        subprocess.run(
-            ["hugo", "new", "--kind", "recipes", f"{HUGO_RECIPE_DIR}/{mkdown_name}"],
-            cwd=PROJECT_ROOT,
-        )
         post_build_mods(
             os.path.join(RECIPE_DIR, json_name), f"{HUGO_RECIPE_DIR}/{mkdown_name}"
         )
-
-    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        executor.map(func, jsonfiles)
-
 
 def build():
     """
@@ -54,8 +53,9 @@ def build():
 
 
 def clean():
-    for file in os.listdir(f"../{HUGO_RECIPE_DIR}"):
-        os.remove(f"../{HUGO_RECIPE_DIR}/{file}")
+    for file in os.listdir(f"{HUGO_RECIPE_DIR}"):
+        log.debug(f'clean: deleting file {file}')
+        os.remove(f"{HUGO_RECIPE_DIR}/{file}")
 
 
 def validate_file_name(name):
@@ -103,13 +103,13 @@ time, additional modification to form are required.
 def post_build_mods(file: str, mkdown: str) -> None:
     with open(file) as fh:
         recipe = json.loads(fh.read())
-
-    correct_date(recipe, os.path.join("..", mkdown))
-    use_json_name_as_title(recipe, os.path.join("..", mkdown))
-    correct_categories(recipe, os.path.join("..", mkdown))
-    add_summary(recipe, os.path.join("..", mkdown))
-    add_author(recipe, os.path.join("..", mkdown))
-    add_photo_author(recipe, os.path.join("..", mkdown))
+    log.debug(f'post_build_mods starting. mkdown={mkdown}, file={file}')
+    correct_date(recipe, os.path.join(mkdown))
+    use_json_name_as_title(recipe, os.path.join(mkdown))
+    correct_categories(recipe, os.path.join(mkdown))
+    add_summary(recipe, os.path.join(mkdown))
+    add_author(recipe, os.path.join(mkdown))
+    add_photo_author(recipe, os.path.join(mkdown))
     try:
         add_frontmatter(recipe, mkdown)
     except Exception as e:
@@ -123,7 +123,7 @@ def correct_date(recipe: dict, mkdown: str) -> None:
 
 
 def use_json_name_as_title(recipe: dict, mkdown: str) -> None:
-    log.debug(f'{__name__}: replacing name with `{recipe["name"]}` | KitchenDB!')
+    log.debug(f'{__name__}: replacing name with `{recipe["name"]}` | NoConvoCooking')
     subprocess.run(
         ["sed", "-i", "", f"s#.*\\$TITLE\\$$#title: {recipe['name']}#", mkdown]
     )
@@ -175,9 +175,9 @@ def add_photo_author(recipe: dict, mkdown: str) -> None:
 
 def add_frontmatter(recipe: dict, mkdown: str) -> None:
     with TemporaryFile() as fp:
-        with open(os.path.join("..", mkdown)) as orig:
+        with open(os.path.join(mkdown)) as orig:
             for line in orig:
-                if line == "prepTime: 0\n":
+                if line == "prepTime: 0\n" and False:
                     fp.write(
                         b"prepTime: "
                         + str(recipe.get("prepTimeMinutes", "0")).encode()

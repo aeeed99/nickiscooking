@@ -1,6 +1,8 @@
 ---
 title: '{{ replace .Name "-" " " | title }}' #$TITLE$
 date: {{ .Date }} #$DATE$
+preHeader: 'Nick is cooking...'
+forceDescription: false
 categories: [] #$CATEGORIES$
 summary: " " #$SUMMARY$
 #$AUTHOR$

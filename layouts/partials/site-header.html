@@ -21,14 +21,14 @@
     <div class="pb3-m pb3-l {{ .Site.Params.background_color_class | default "bg-black" }}">
       {{ partial "site-navigation.html" . }}
       <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f-subheadline fw2 mv0 mv8-ns light-silver mb0 lh-title tc" style="font-size: 3.5rem; font-family: Satisfy; transform: rotate(-1.6deg);">
-          {{ .Title | default .Site.Title }}<span style="font-family: SquarePeg; font-weight: 900; font-size: 5.2rem; vertical-align: -0.6rem; position: relative">!</span>
+        <h1 class="f-subheadline fw2 mv0 mv8-ns washed-green mb0 lh-title tc" style="font-size: 3.5rem; font-family: Satisfy; transform: rotate(-1.6deg);">
+          {{ .Title | default .Site.Title }}<span style="font-family: SquarePeg; font-weight: 900; font-size: 5.2rem; vertical-align: -0.6rem; position: relative"></span>
         </h1>
         <div class="tc">
-          <span class="f4 silver tc moon-grey i">
-            {{ if .Params.useTagline }}No ads; no backstories; free forever.
+          <span class="f4 washed-green tc moon-grey i">
+            {{ if .Params.useTagline }}An archive of things I have (and haven't) cooked.
           </span>
-          <a href="/about/" class="light-blue f6">Learn More.</a>{{ end}}
+          {{ end }}
         </div>
         {{ if .Params.useSearch }}<div class="white">{{ partial "search.html" }}</div>{{ end }}
         {{ with .Params.description }}

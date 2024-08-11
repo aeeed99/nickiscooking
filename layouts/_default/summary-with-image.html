@@ -12,11 +12,11 @@
       {{ end }}
       <div class="blah w-100{{ if $featured_image }} w-60-ns {{ cond (eq $.Site.Language.LanguageDirection "rtl") "pr3-ns" "pl3-ns" }}{{ end }}">
         <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="{{.RelPermalink}}" class="color-inherit dim link">
+          <a href="{{.RelPermalink}}" class="dark-green dim link" style="font-family: MontaguSlab; font-weight: 700">
             {{ .Title }}
             </a>
         </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links dark-green">
           {{ .Summary }} &nbsp;{{ range $_, $category := .Params.categories }}
             {{ $categoryUrl := (replace $category " " "-") }}
             <a href="/categories/{{ $categoryUrl }}/" class="grow no-underline f6 br-pill ba ph3 mb2" style="margin-right: 4px; display: inline-block;">{{ title $category }}</a>
