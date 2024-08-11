@@ -16,10 +16,12 @@
       </aside>
       {{ partial "social-share.html" . }}
       <meta data-pagefind-default-meta="image[content]" content="{{ partial "func/ThumbnailFromImage" .Params.featured_image }}" property="og:image">
+      {{ if or (not .Params.featured_image) .Params.force }}
       <h1 class="f1 mt3 mb1" data-pagefind-body style="font-family: MontaguSlab">
         {{- .Title -}}
         {{/*  {{ .Params.jsonData.attribution }}  */}}
       </h1>
+      {{ end }}
       {{ with .Params.author | default .Site.Params.author }}
       <p class="tracked" style="display: flex; align-items: center;">
         {{ $.Render "by" }} <strong style="display: flex; align-items: center;">
