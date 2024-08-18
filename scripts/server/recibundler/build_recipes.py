@@ -23,18 +23,23 @@ HUGO_RECIPE_DIR = "../../content/recipes"
 MAX_WORKERS = 10
 
 
-def create_hugo_content_from_json(jsonfiles: List[str]):
-    result = subprocess.run(
-            ["./build_recipes.sh"],
-            cwd=PROJECT_ROOT,
-            shell=True,
-            capture_output=True
-        )
-    if result.returncode != 0:
-            log.error(f'Error! {result.stderr} {result.stdout}')
+def create_hugo_content_from_json(jsonfiles: List[str], clean=True):
+    if clean:
+        result = subprocess.run(
+                ["./build_recipes.sh"],
+                cwd=PROJECT_ROOT,
+                shell=True,
+                capture_output=True
+            )
+        if result.returncode != 0:
+                log.error(f'Error! {result.stderr} {result.stdout}')
     
-    for file in jsonfiles:
+    for file in jsonfiles:  
         validate_file_name(file)
+        if not clean:
+            subprocess.run(["hugo", "new", "--kind", "recipes", f'''recipes/{file.replace("'", "ʼ").replace('json', 'md')}'''],
+                cwd=PROJECT_ROOT )
+
         with open(os.path.join(RECIPE_DIR, file)) as fh:
             log.debug(f"Validating schema for {file}...")
             # validate_file_schema(fh)

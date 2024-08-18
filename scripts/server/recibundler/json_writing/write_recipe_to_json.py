@@ -111,6 +111,8 @@ def write_recipe_to_json(recipe: dict, additional_keys=None):
     logging.info(f"Recipe will be named {filename}")
     with open(path.join("..", "..", "data", "recipes", filename), "w") as fh:
         fh.write(json.dumps({**recipe, **additional_keys}, indent=2))  # type: ignore
+    
+    return filename
 
 
 def optional(value) -> t.Optional[t.Any]:

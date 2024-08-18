@@ -19,6 +19,7 @@ from datetime import datetime
 import logging
 from recibundler.schema import reciperow
 from recibundler import json_writing
+from recibundler import create_hugo_content_from_json
 import gsheets_download
 
 ADD_NEW_RECIPES_SINCE_PATH = "add_new_recipes_since"
@@ -48,7 +49,6 @@ def add_new_recipes(filepath=None):
 
         # skip the header
         next(reader)
-
         for recipe in reader:
             recipe += [None, None]
             print(recipe)
@@ -59,7 +59,7 @@ def add_new_recipes(filepath=None):
             print(recipe)
             parsed_recipe = json_writing.ai_recipe_to_json.main(recipe)
             try:
-                json_writing.write_recipe_to_json(parsed_recipe, { "name": recipe.name })
+                filename = json_writing.write_recipe_to_json(parsed_recipe, { "name": recipe.name })
             except Exception as e:
                 logging.error(f'got this error will try again: {e}')
                 parsed_recipe = json_writing.ai_recipe_to_json.main(recipe, additional_messages=[
@@ -73,7 +73,10 @@ def add_new_recipes(filepath=None):
                         "can you try again? Keep in mind the entire json schema. Don't apologize, just output raw json"
                     }
                 ])
-                json_writing.write_recipe_to_json(parsed_recipe, { "name": recipe.name })
+                filename = json_writing.write_recipe_to_json(parsed_recipe, { "name": recipe.name })
+            
+            create_hugo_content_from_json([filename], clean=False)
+
 
             with open(ADD_NEW_RECIPES_SINCE_PATH, mode="w") as datefh:
                 datefh.write(str(reciperow.isodate_from_recipe(recipe)))
