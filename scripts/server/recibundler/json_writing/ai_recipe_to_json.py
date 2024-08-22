@@ -112,6 +112,8 @@ def main(recipe, additional_messages=None):
         data = json.loads(response.choices[0].message.content)
 
     ## common data corrections ##
+    if "ingredients" not in data:
+        breakpoint()
     for section in data["ingredients"]:
         for ingredient in section["ingredients"]:
             if "customUnit" in ingredient and "unit" in ingredient:
@@ -155,6 +157,8 @@ def main(recipe, additional_messages=None):
             del data[field]
     for si, section in enumerate(data["ingredients"]):
         for ii, ing in enumerate(section["ingredients"]):
+            if "unit" not in ing:
+                breakpoint()
             if ing["unit"] in units_to_correct.keys():
                 corrected = units_to_correct[ing["unit"]]
                 log.info(f'Correcting unit: {ing["unit"]} -> {corrected}')

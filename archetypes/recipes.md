@@ -12,6 +12,7 @@ prepTime: 0
 cookTime: 0
 youtube: ""
 difficulty: 0
+# Replace with /images/<image-name>
 featured_image: ""
 description: How to make {{ replace .Name "-" " " | title }} from the free online cookbook
 diets: []

@@ -18,8 +18,9 @@ with open("../../secrets.json") as fh:
     log.debug(f"Loaded {len(secrets)} secrets")
 
 
-def deploy():
-    build_recipes()
+def deploy(clean=True):
+    if clean:
+        build_recipes()
     build_hugo()
     add_pagefind()
     upload_to_s3()
@@ -96,7 +97,7 @@ def upload_to_s3():
 
 if __name__ == "__main__":
     try:
-        deploy()
+        deploy(clean=False)
     except subprocess.CalledProcessError as e:
         log.critical("Could not deploy!!")
         log.critical(e.stderr)

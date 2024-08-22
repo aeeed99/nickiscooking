@@ -12,7 +12,7 @@ prepTime: 0
 cookTime: 30
 youtube: ""
 difficulty: 0
-featured_image: ""
+featured_image: "/images/apple-blondies.webp"
 description: How to make Apple Blondies from the free online cookbook
 diets: []
 cuisines: []

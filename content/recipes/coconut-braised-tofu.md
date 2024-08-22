@@ -12,7 +12,7 @@ prepTime: 0
 cookTime: 15
 youtube: ""
 difficulty: 0
-featured_image: ""
+featured_image: "/images/coconut-braised-tofu.webp"
 description: How to make Coconut Braised Tofu from the free online cookbook
 diets: []
 cuisines: []
