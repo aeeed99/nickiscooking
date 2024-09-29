@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -eou pipefail
-
-aws s3 sync data/recipes s3://${1}
+source ../.env
+aws s3 sync data/recipes s3://${S3_RECIPE_DATA} 

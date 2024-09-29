@@ -20,7 +20,7 @@ cuisines: []
 
 This came from [r/oldrecipes](https://reddit.com/r/oldrecipes), and apparently was an award-winning
 baker's secret recipe. The "murder" part came to be through discussions that the baker's neighbor was murdered, though
-I've had a hard time verifying. Makes for a cool name though!
+I've had a hard time verifying. Makes for a cool name though!  
 
 These are very delicuos and have a soft texture, but only if you do them perfectly. Bake too little, and you get an
 overly gooey center that easilly falls apart. Too much and they taste just bad. Be strict with the time and adjust

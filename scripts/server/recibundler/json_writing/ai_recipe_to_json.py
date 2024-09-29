@@ -157,9 +157,7 @@ def main(recipe, additional_messages=None):
             del data[field]
     for si, section in enumerate(data["ingredients"]):
         for ii, ing in enumerate(section["ingredients"]):
-            if "unit" not in ing:
-                breakpoint()
-            if ing["unit"] in units_to_correct.keys():
+            if "unit" in ing and ing["unit"] in units_to_correct.keys():
                 corrected = units_to_correct[ing["unit"]]
                 log.info(f'Correcting unit: {ing["unit"]} -> {corrected}')
                 try:
