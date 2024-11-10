@@ -4,11 +4,12 @@ date: 2024-09-12T20:59:24-05:00
 preHeader: 'Nick is cooking...'
 forceDescription: false
 categories: []
+difficulty: 2
 summary: "Delicious!"
 #$AUTHOR$
 #$PHOTO_AUTHOR$
 #$PHOTO_AUTHOR_LINK$
-prepTime: 0
+prepTime: 20
 cookTime: 25
 youtube: ""
 difficulty: 0

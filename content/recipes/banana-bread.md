@@ -1,6 +1,6 @@
 ---
 title: Banana Bread
-date: 2024-08-27T21:21:48-05:00
+date: 2024-08-17T21:21:48-05:00
 preHeader: 'Nick is cooking...'
 forceDescription: false
 categories: []
